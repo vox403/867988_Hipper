@@ -99,20 +99,12 @@
       inset: 0;
       z-index: 49;
       pointer-events: none;
-      opacity: .05;
+      opacity: .035;
       background-image:
         radial-gradient(circle at 10% 20%, rgba(255,255,255,.7) 0 1px, transparent 1px),
         radial-gradient(circle at 80% 50%, rgba(31,244,255,.65) 0 1px, transparent 1px),
         radial-gradient(circle at 45% 70%, rgba(255,7,58,.65) 0 1px, transparent 1px);
       background-size: 17px 19px, 23px 29px, 31px 37px;
-      animation: staticMove .7s steps(3) infinite;
-    }
-
-    @keyframes staticMove {
-      0% { transform: translate(0,0); }
-      35% { transform: translate(9px,-7px); }
-      70% { transform: translate(-6px,5px); }
-      100% { transform: translate(0,0); }
     }
 
     .panel {
@@ -291,7 +283,6 @@
       object-fit: cover;
       transform: scale(1.02);
       filter: contrast(1.04) saturate(1.05) brightness(.7);
-      transition: filter .25s ease, transform .25s ease;
       z-index: 0;
     }
     #voxOverlay {
@@ -307,7 +298,6 @@
       z-index: 1;
       pointer-events: none;
       filter: drop-shadow(0 0 28px rgba(0, 0, 0, .36));
-      transition: opacity .25s ease, transform .25s ease, filter .25s ease;
     }
     .cg-wrap::after {
       content: "";
@@ -319,7 +309,6 @@
         linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,.15) 52%, rgba(0,0,0,.56)),
         radial-gradient(circle at 72% 28%, rgba(31,244,255,.18), transparent 32%),
         radial-gradient(circle at 22% 65%, rgba(255,7,58,.08), transparent 35%);
-      transition: background .25s ease;
     }
     .cg-wrap[data-mood="red"]::after {
       background:
@@ -436,7 +425,6 @@
     .dialogue-box {
       background:
         linear-gradient(180deg, rgba(2, 10, 24, .74), rgba(2, 3, 8, .78));
-      backdrop-filter: blur(5px);
     }
     .dialogue-box #storyText {
       text-shadow: 0 2px 10px rgba(0,0,0,.72);
@@ -511,14 +499,6 @@
       box-shadow: var(--shadow-blue);
       outline: none;
     }
-    .choice-btn.locked {
-      cursor: not-allowed;
-      opacity: .42;
-      border-color: rgba(255,255,255,.22);
-      background: linear-gradient(90deg, rgba(255,255,255,.07), rgba(0,0,0,.82));
-    }
-    .choice-btn.locked:hover { transform: none; box-shadow: none; }
-    .choice-btn.fatal { border-color: rgba(255,7,58,.55); }
 
     #documentPanel {
       z-index: 22;
@@ -526,14 +506,8 @@
       justify-content: center;
       padding: 60px 0;
       background: rgba(3, 8, 20, .22);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
-    #documentPanel.active { display: flex; animation: docFadeIn .32s ease; }
-    @keyframes docFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    #documentPanel.active { display: flex; }
     .document-bg {
       position: absolute;
       inset: 0;
@@ -557,11 +531,6 @@
         0 0 80px rgba(0,0,0,.34);
       clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
       overflow: hidden;
-      animation: docCardUp .42s cubic-bezier(.2,.7,.2,1);
-    }
-    @keyframes docCardUp {
-      from { opacity: 0; transform: translateY(24px) scale(.985); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .document-card::before {
       content: "";
@@ -1103,63 +1072,6 @@
     input[type="range"] { width: 100%; accent-color: var(--blue); }
     .toggle-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    #endingScreen .cg-wrap::after {
-      background:
-        linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.45)),
-        radial-gradient(circle at 50% 36%, rgba(31,244,255,.18), transparent 38%);
-    }
-    .ending-result {
-      position: absolute;
-      z-index: 20;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 1180px;
-      padding: 52px 58px;
-      background: rgba(2, 6, 16, .94);
-      border: 1px solid rgba(31,244,255,.52);
-      box-shadow: 0 0 80px rgba(0,166,255,.24), inset 0 0 50px rgba(31,244,255,.045);
-      text-align: center;
-      clip-path: polygon(0 0, calc(100% - 42px) 0, 100% 42px, 100% 100%, 42px 100%, 0 calc(100% - 42px));
-    }
-    .ending-result.danger { border-color: rgba(255,7,58,.62); box-shadow: var(--shadow-red); }
-    .ending-kicker {
-      color: var(--muted);
-      font-size: 22px;
-      font-weight: 1000;
-      letter-spacing: .14em;
-      margin-bottom: 12px;
-    }
-    .ending-title {
-      margin: 0 0 26px;
-      color: var(--blue);
-      font-size: 62px;
-      line-height: 1.1;
-      letter-spacing: -.05em;
-      text-shadow: var(--shadow-blue);
-    }
-    .ending-result.danger .ending-title { color: var(--red); text-shadow: var(--shadow-red); }
-    .ending-body {
-      margin: 0 auto 30px;
-      max-width: 960px;
-      color: rgba(245,250,255,.82);
-      font-size: 28px;
-      line-height: 1.65;
-      word-break: keep-all;
-      white-space: pre-line;
-    }
-    .ending-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-    .glitch {
-      animation: glitch .18s steps(2) infinite;
-    }
-    @keyframes glitch {
-      0% { transform: translate(-50%, -50%) skewX(0deg); filter: none; }
-      30% { transform: translate(calc(-50% + 8px), calc(-50% - 4px)) skewX(2deg); filter: hue-rotate(60deg); }
-      60% { transform: translate(calc(-50% - 5px), calc(-50% + 7px)) skewX(-2deg); filter: hue-rotate(320deg); }
-      100% { transform: translate(-50%, -50%) skewX(0deg); filter: none; }
-    }
-
     #toast {
       position: absolute;
       z-index: 80;
@@ -1640,21 +1552,6 @@
       font-size: 21px;
       line-height: 1.5;
       word-break: keep-all;
-    }
-
-    .mobile-tip {
-      position: absolute;
-      z-index: 60;
-      left: 28px;
-      bottom: 24px;
-      color: rgba(255,255,255,.62);
-      font-size: 17px;
-      font-weight: 800;
-      pointer-events: none;
-    }
-
-    @media (max-width: 900px) {
-      .mobile-tip { display: block; }
     }
 
 
@@ -2223,8 +2120,6 @@
         linear-gradient(180deg, rgba(4, 14, 31, .69), rgba(2, 6, 16, .80));
       border-color: rgba(31,244,255,.42);
       box-shadow: 0 0 38px rgba(0,166,255,.14), inset 0 0 34px rgba(31,244,255,.045);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
     .dialogue-main { height: 100%; position: relative; }
     .dialogue-box .speaker-row { margin-bottom: 10px; gap: 14px; }
@@ -2302,13 +2197,10 @@
       place-items: center;
       padding: 50px;
       background: rgba(0, 3, 10, .62);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
     }
-    .system-overlay.active { display: grid; animation: systemFade .18s ease; }
+    .system-overlay.active { display: grid; }
     .system-overlay.elevated { z-index: 86; }
     .system-overlay.confirm-layer { z-index: 92; }
-    @keyframes systemFade { from { opacity: 0; } to { opacity: 1; } }
     .system-panel {
       position: relative;
       width: 760px;
@@ -2586,7 +2478,6 @@
     }
 
 
-    /* Story presentation refinements */
     .chapter-bar { display: none !important; }
     .day-tag,
     .chapter-title { display: none !important; }
@@ -2596,8 +2487,6 @@
         linear-gradient(180deg, rgba(4, 14, 31, .52), rgba(2, 6, 16, .66));
       border-color: rgba(31,244,255,.38);
       box-shadow: 0 0 34px rgba(0,166,255,.12), inset 0 0 30px rgba(31,244,255,.035);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       transition: opacity .28s ease, transform .32s ease;
     }
     .dialogue-box.visual-wait {
@@ -2906,20 +2795,6 @@
         </div>
       </section>
 
-      <section id="endingScreen" class="panel">
-        <div id="endingCg" class="cg-wrap" data-mood="blue"><img src="temporary.png" alt="엔딩 임시 일러스트"></div>
-        <div id="endingResult" class="ending-result">
-          <div id="endingKicker" class="ending-kicker">엔딩</div>
-          <h2 id="endingTitle" class="ending-title"></h2>
-          <p id="endingBody" class="ending-body"></p>
-          <div class="ending-actions">
-            <button id="endingDbAfterBtn" class="vox-btn small">엔딩 정보 보기</button>
-            <button id="restartAfterEndingBtn" class="vox-btn small">새 기록 시작</button>
-            <button id="menuAfterEndingBtn" class="vox-btn small">BACK TO MENU</button>
-          </div>
-        </div>
-      </section>
-
 
       <section id="bugScreen" class="panel bug-screen">
         <div class="bug-static"></div>
@@ -3037,16 +2912,6 @@
 
       const ASSETS = {
         main: "temporary.png",
-        d01_document: "temporary.png",
-        d01_interview: "temporary.png",
-        d02_office: "temporary.png",
-        d03_overwork: "temporary.png",
-        d04_visit: "temporary.png",
-        d05_signal: "temporary.png",
-        d06_outfit: "temporary.png",
-        d07_report: "temporary.png",
-        d08_archive: "temporary.png",
-        d09_low: "temporary.png",
         d10_end: "temporary.png",
         hidden: "temporary.png",
         bug: "temporary.png",
@@ -3061,8 +2926,16 @@
         surprise: "vox_surprise.png"
       };
 
-      const PUZZLE_IDS = ["records", "signal", "populi", "report"];
       const PUZZLE_LIMIT_SECONDS = 300;
+      const MAX_LOG_ENTRIES = 160;
+      const BLOCKED_NAMES = new Set([
+        "복스", "vox",
+        "발렌티노", "valentino",
+        "벨벳", "velvet", "velvette"
+      ]);
+      const SENTENCE_SEGMENTER = typeof Intl !== "undefined" && typeof Intl.Segmenter === "function"
+        ? new Intl.Segmenter("ko", { granularity: "sentence" })
+        : null;
 
       const ENDINGS = {
         "bad": {
@@ -4976,7 +4849,6 @@
         endingDbPanel: $("#endingDbPanel"),
         creditsPanel: $("#creditsPanel"),
         settingsPanel: $("#settingsPanel"),
-        endingScreen: $("#endingScreen"),
         bugScreen: $("#bugScreen"),
         bugTitle: $("#bugTitle"),
         bugBody: $("#bugBody"),
@@ -5005,11 +4877,6 @@
         endingImageFull: $("#endingImageFull"),
         endingImageCaption: $("#endingImageCaption"),
         endingImageCloseBtn: $("#endingImageCloseBtn"),
-        endingResult: $("#endingResult"),
-        endingKicker: $("#endingKicker"),
-        endingTitle: $("#endingTitle"),
-        endingBody: $("#endingBody"),
-        endingCg: $("#endingCg"),
         endingActionTray: $("#endingActionTray"),
         endingStoryDbBtn: $("#endingStoryDbBtn"),
         endingStoryRestartBtn: $("#endingStoryRestartBtn"),
@@ -5067,6 +4934,7 @@
       let sceneTransitionTimers = [];
       let audioUnlockArmed = false;
       let bugNoiseActive = false;
+      let progressSaveTimer = null;
 
       function defaultState() {
         return {
@@ -5092,6 +4960,11 @@
       function saveJson(key, value) {
         try { localStorage.setItem(key, JSON.stringify(value)); }
         catch (err) { showToast("저장 공간을 사용할 수 없습니다. 복스에게 버그 내용을 공유해 주세요."); }
+      }
+
+      function removeStoredKey(key) {
+        try { localStorage.removeItem(key); }
+        catch (err) {}
       }
 
       function getRegisteredName() {
@@ -5148,7 +5021,6 @@
 
       function saveSecretState(value) {
         saveJson(STORE.secret, value);
-        applySecretCursorState();
         updateMenuStatus();
       }
 
@@ -5169,14 +5041,6 @@
         );
       }
 
-      function applySecretCursorState() {
-        document.documentElement.classList.remove("secret-cursor-active");
-      }
-
-      function hiddenUnlocked() {
-        return hasEnding("hidden");
-      }
-
       function getPuzzleCompletions() {
         return loadJson(STORE.puzzles, {});
       }
@@ -5185,10 +5049,6 @@
         const completed = getPuzzleCompletions();
         const value = Number(completed?.[id]?.bestSeconds);
         return Number.isFinite(value) ? value : null;
-      }
-
-      function isPuzzleCompleted(id) {
-        return getPuzzleBestTime(id) !== null;
       }
 
       function markPuzzleCompleted(id, seconds) {
@@ -5214,10 +5074,33 @@
         saveProgress();
       }
 
-      function saveProgress() {
+      function persistProgress() {
         if (!state) return;
-        saveJson(STORE.save, state);
-        updateMenuStatus();
+        const snapshot = Object.assign({}, state, {
+          log: Array.isArray(state.log) ? state.log.slice(-MAX_LOG_ENTRIES) : []
+        });
+        saveJson(STORE.save, snapshot);
+      }
+
+      function saveProgress(immediate = false) {
+        if (!state) return;
+        clearTimeout(progressSaveTimer);
+        progressSaveTimer = null;
+        if (immediate) {
+          persistProgress();
+          return;
+        }
+        progressSaveTimer = setTimeout(() => {
+          progressSaveTimer = null;
+          persistProgress();
+        }, 60);
+      }
+
+      function flushProgressSave() {
+        if (!progressSaveTimer) return;
+        clearTimeout(progressSaveTimer);
+        progressSaveTimer = null;
+        persistProgress();
       }
 
       function loadProgress() {
@@ -5227,7 +5110,9 @@
       }
 
       function clearProgress() {
-        localStorage.removeItem(STORE.save);
+        clearTimeout(progressSaveTimer);
+        progressSaveTimer = null;
+        removeStoredKey(STORE.save);
         updateMenuStatus();
       }
 
@@ -5240,7 +5125,9 @@
 
 
       function deepClone(value) {
-        return JSON.parse(JSON.stringify(value));
+        return typeof structuredClone === "function"
+          ? structuredClone(value)
+          : JSON.parse(JSON.stringify(value));
       }
 
       function getSlots() {
@@ -5309,8 +5196,8 @@
 
       function renderSlots() {
         const slots = getSlots();
+        const fragment = document.createDocumentFragment();
         els.slotTitle.textContent = slotMode === "save" ? "SAVE" : "LOAD";
-        els.slotGrid.innerHTML = "";
 
         slots.forEach((entry, index) => {
           const btn = document.createElement("button");
@@ -5326,8 +5213,9 @@
             btn.innerHTML = `<span class="slot-number">SLOT ${slotNo}</span><strong class="slot-name">${entry.state.playerName || "지원자"}</strong><span class="slot-meta">${node.day || "진행 중"} · ${node.title || "기록"}<br>${date}</span>`;
           }
           btn.addEventListener("click", () => handleSlotClick(index));
-          els.slotGrid.appendChild(btn);
+          fragment.appendChild(btn);
         });
+        els.slotGrid.replaceChildren(fragment);
       }
 
       function openSlotOverlay(mode) {
@@ -5371,7 +5259,7 @@
         } else if (state.playerName) {
           saveRegisteredName(state.playerName);
         }
-        saveProgress();
+        saveProgress(true);
         closeAllSystemOverlays();
         startBgm();
         goToNode(state.node);
@@ -5379,11 +5267,11 @@
 
       function renderLog() {
         const entries = Array.isArray(state?.log) ? state.log : [];
-        els.logList.innerHTML = "";
         if (!entries.length) {
           els.logList.innerHTML = '<p class="log-empty">아직 기록된 대화가 없습니다.</p>';
           return;
         }
+        const fragment = document.createDocumentFragment();
         entries.forEach(entry => {
           const row = document.createElement("div");
           row.className = "log-entry";
@@ -5394,8 +5282,9 @@
           body.className = "log-text";
           body.textContent = entry.text || "";
           row.append(speaker, body);
-          els.logList.appendChild(row);
+          fragment.appendChild(row);
         });
+        els.logList.replaceChildren(fragment);
         requestAnimationFrame(() => { els.logList.scrollTop = els.logList.scrollHeight; });
       }
 
@@ -5479,10 +5368,14 @@
 
       function switchPanel(panelId) {
         clearAutoTimer();
-        if (panelId !== "puzzlePanel") clearPuzzleRuntime();
-        els.panels.forEach(panel => panel.classList.remove("active"));
-        const panel = document.getElementById(panelId);
-        if (panel) panel.classList.add("active");
+        const activePanels = els.panels.filter(panel => panel.classList.contains("active"));
+        const alreadyActive = activePanels.length === 1 && activePanels[0].id === panelId;
+        if (!alreadyActive) {
+          if (panelId !== "puzzlePanel") clearPuzzleRuntime();
+          activePanels.forEach(panel => panel.classList.remove("active"));
+          const panel = document.getElementById(panelId);
+          if (panel) panel.classList.add("active");
+        }
         els.stage.classList.toggle("home-mode", panelId === "menuPanel");
         if (panelId === "bugScreen") startBugNoise();
         else if (bugNoiseActive) stopBugNoise(true);
@@ -5537,6 +5430,7 @@
         els.loadingScreen.classList.remove("awaiting-start");
         els.loadingStatus.textContent = "CONNECTING";
         startBgm(true);
+        void enterFullscreenAndLandscape();
 
         setTimeout(() => {
           els.menuPanel.classList.add("home-bg-visible");
@@ -5627,7 +5521,7 @@
 
       function startBgm(silent = false) {
         applyAudioSettings();
-        if (bugNoiseActive) return;
+        if (bugNoiseActive || !els.bgm.paused) return;
         const playPromise = els.bgm.play();
         if (playPromise && typeof playPromise.catch === "function") {
           playPromise.catch(() => {
@@ -5659,14 +5553,16 @@
 
       function updateMenuStatus() {
         const seen = getEndingsSeen();
+        const secret = getSecretState();
         const seenCount = Object.keys(seen).filter(id => ENDINGS[id]).length;
         const savedCount = getSlots().filter(slot => slot && slot.state).length;
+        const regularSeen = ["bad", "normal", "happy", "gameover"].every(id => Boolean(seen[id]));
         els.continueBtn.disabled = false;
         if (els.secretBtn) {
-          els.secretBtn.hidden = !allRegularEndingsSeen();
-          els.secretBtn.textContent = hasEnding("hidden")
+          els.secretBtn.hidden = !regularSeen;
+          els.secretBtn.textContent = seen.hidden
             ? "SECRET · COMPLETE"
-            : hasSecretKey()
+            : secret.keyAcquired
               ? "SECRET · KEY"
               : "SECRET";
         }
@@ -5706,12 +5602,7 @@
       }
 
       function isVeesName(name) {
-        const normalized = normalizeName(name);
-        return new Set([
-          "복스", "vox",
-          "발렌티노", "valentino",
-          "벨벳", "velvet", "velvette"
-        ]).has(normalized);
+        return BLOCKED_NAMES.has(normalizeName(name));
       }
 
       function clearSceneTransitionTimers() {
@@ -5937,15 +5828,17 @@
 
       function setVisual(node) {
         const img = resolveNodeImage(node, ASSETS.main || "temporary.png");
-        els.cgImg.src = img;
+        if (els.cgImg.getAttribute("src") !== img) els.cgImg.src = img;
         if (els.voxOverlay) {
           const showVox = String(node?.speaker || "").trim() === "복스";
           els.voxOverlay.hidden = !showVox;
           if (showVox) {
-            els.voxOverlay.src = getVoxExpressionImage(node, currentNodeId);
+            const expression = getVoxExpressionImage(node, currentNodeId);
+            if (els.voxOverlay.getAttribute("src") !== expression) els.voxOverlay.src = expression;
           }
         }
-        els.cgWrap.dataset.mood = node.mood || "blue";
+        const mood = node.mood || "blue";
+        if (els.cgWrap.dataset.mood !== mood) els.cgWrap.dataset.mood = mood;
         els.dayTag.textContent = node.day || "기록";
         els.chapterTitle.textContent = node.title || "복스테크";
       }
@@ -6033,20 +5926,6 @@
         return order;
       }
 
-      function getIrregularClip(index) {
-        const clips = [
-          "polygon(0 7%, 15% 0, 82% 3%, 100% 16%, 96% 80%, 82% 100%, 16% 96%, 0 82%)",
-          "polygon(5% 0, 79% 0, 100% 12%, 95% 38%, 100% 83%, 83% 100%, 13% 94%, 0 76%, 4% 25%)",
-          "polygon(0 14%, 18% 2%, 72% 0, 100% 19%, 94% 51%, 100% 88%, 76% 97%, 24% 100%, 0 81%, 6% 47%)",
-          "polygon(8% 0, 88% 5%, 100% 24%, 92% 58%, 100% 82%, 80% 100%, 37% 94%, 12% 100%, 0 77%, 5% 34%)",
-          "polygon(0 3%, 36% 8%, 64% 0, 100% 9%, 94% 36%, 100% 76%, 88% 100%, 54% 93%, 14% 100%, 0 86%, 7% 49%)",
-          "polygon(4% 0, 30% 6%, 70% 0, 100% 14%, 96% 43%, 100% 91%, 71% 96%, 43% 100%, 8% 92%, 0 64%, 5% 25%)",
-          "polygon(0 12%, 22% 0, 58% 5%, 88% 0, 100% 22%, 95% 69%, 100% 88%, 73% 100%, 30% 94%, 0 100%, 6% 58%)",
-          "polygon(10% 0, 48% 5%, 83% 0, 100% 20%, 94% 46%, 100% 77%, 89% 100%, 48% 94%, 12% 100%, 0 79%, 5% 39%)"
-        ];
-        return clips[index % clips.length];
-      }
-
       function getPuzzleGrid(puzzleId) {
         const grids = {
           records: { cols: 5, rows: 4 },
@@ -6091,7 +5970,7 @@
       function drawPuzzle() {
         if (!puzzleState) return;
         const { cols, rows, order, image } = puzzleState;
-        els.puzzleBoard.innerHTML = "";
+        const fragment = document.createDocumentFragment();
         els.puzzleBoard.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         els.puzzleBoard.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
         els.puzzleBoard.style.setProperty("--piece-img", `url("${image}")`);
@@ -6112,8 +5991,9 @@
           btn.dataset.piece = String(pieceIndex);
           if (puzzleState.selected === slotIndex) btn.classList.add("selected");
           btn.addEventListener("click", () => selectPuzzleSlot(slotIndex));
-          els.puzzleBoard.appendChild(btn);
+          fragment.appendChild(btn);
         });
+        els.puzzleBoard.replaceChildren(fragment);
       }
 
       function renderSecretPuzzle() {
@@ -6128,7 +6008,6 @@
         }
 
         resetEndingMode();
-        enterFullscreenAndLandscape();
         startBgm();
         currentNode = { type: "secretPuzzle" };
         currentNodeId = "secret_puzzle";
@@ -6251,25 +6130,25 @@
       }
 
       function burstConfetti() {
-        els.confettiLayer.innerHTML = "";
-        for (let i = 0; i < 90; i += 1) {
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < 36; i += 1) {
           const bit = document.createElement("i");
           bit.className = "confetti";
           bit.style.left = `${Math.random() * 100}%`;
           bit.style.top = `${-10 - Math.random() * 18}%`;
           bit.style.animationDelay = `${Math.random() * .25}s`;
           bit.style.transform = `rotate(${Math.random() * 360}deg)`;
-          els.confettiLayer.appendChild(bit);
+          fragment.appendChild(bit);
         }
+        els.confettiLayer.replaceChildren(fragment);
       }
 
       function splitStorySentences(text) {
         const source = String(text || "").replace(/\r/g, "").trim();
         if (!source) return [""];
 
-        if (typeof Intl !== "undefined" && typeof Intl.Segmenter === "function") {
-          const segmenter = new Intl.Segmenter("ko", { granularity: "sentence" });
-          const segmented = Array.from(segmenter.segment(source), item => item.segment.trim()).filter(Boolean);
+        if (SENTENCE_SEGMENTER) {
+          const segmented = Array.from(SENTENCE_SEGMENTER.segment(source), item => item.segment.trim()).filter(Boolean);
           if (segmented.length) return segmented;
         }
 
@@ -6345,6 +6224,9 @@
         const exists = state.log.some(entry => entry.node === currentNodeId && Number(entry.segment) === index);
         if (!exists) {
           state.log.push({ node: currentNodeId, segment: index, speaker, text: sentence });
+          if (state.log.length > MAX_LOG_ENTRIES) {
+            state.log.splice(0, state.log.length - MAX_LOG_ENTRIES);
+          }
         }
       }
 
@@ -6474,7 +6356,6 @@
         setSkipMode(false);
         switchPanel("novelPanel");
         setVisual(node);
-        // 선택지 화면에서 뒤쪽 장면 숨기기
         els.dialogueBox.style.display = "none";
         els.speakerName.textContent = "";
         els.speakerSub.textContent = "";
@@ -6492,16 +6373,8 @@
         node.choices.forEach((choice, index) => {
           const btn = document.createElement("button");
           btn.className = "choice-btn";
-          const locked = choice.requiresHidden && !hiddenUnlocked();
-          const visibleText = locked ? "잠긴 선택지" : (choice.unlockedText || choice.text);
-          btn.textContent = `${index + 1}. ${visibleText}`;
-          if (locked) {
-            btn.classList.add("locked");
-            btn.setAttribute("aria-disabled", "true");
-            btn.addEventListener("click", () => showToast("아직 선택할 수 없는 항목이다."));
-          } else {
-            btn.addEventListener("click", () => choose(choice, node));
-          }
+          btn.textContent = `${index + 1}. ${choice.unlockedText || choice.text}`;
+          btn.addEventListener("click", () => choose(choice, node));
           els.choicePanel.appendChild(btn);
         });
         els.choicePanel.classList.add("active");
@@ -6574,7 +6447,6 @@
       }
 
 
-
       function renderBugEnding(id, ending) {
         resetEndingMode();
         switchPanel("bugScreen");
@@ -6641,8 +6513,8 @@
       function renderEndingDb() {
         switchPanel("endingDbPanel");
         const seen = getEndingsSeen();
+        const fragment = document.createDocumentFragment();
         els.hiddenStateText.textContent = "확인한 엔딩의 일러스트를 선택하면 확대해서 볼 수 있습니다.";
-        els.endingGrid.innerHTML = "";
         Object.entries(ENDINGS)
           .sort((a, b) => a[1].order - b[1].order)
           .forEach(([id, ending]) => {
@@ -6652,7 +6524,7 @@
 
             if (!unlocked) {
               card.innerHTML = `<div class="ending-locked-mark" aria-label="미확인 엔딩">?</div>`;
-              els.endingGrid.appendChild(card);
+              fragment.appendChild(card);
               return;
             }
 
@@ -6673,11 +6545,13 @@
               img.src = "black.png";
             }, { once: true });
             thumb.addEventListener("click", () => openEndingImage(image, ending.name));
-            els.endingGrid.appendChild(card);
+            fragment.appendChild(card);
           });
+        els.endingGrid.replaceChildren(fragment);
       }
 
       function openMenu() {
+        flushProgressSave();
         resetEndingMode();
         clearTimeout(typingTimer);
         clearAutoTimer();
@@ -6694,7 +6568,6 @@
 
       function startNewGame() {
         resetEndingMode();
-        enterFullscreenAndLandscape();
         startBgm();
 
         if (secretKeyReady() || hiddenReplayReady()) {
@@ -6710,28 +6583,29 @@
           return;
         }
 
+        const beginNewRecord = () => {
+          clearProgress();
+          renderDocument();
+        };
         if (loadProgress()) {
-          const ok = confirm("기존 진행 저장이 있습니다. 새 기록을 시작하면 진행 저장은 덮어씁니다. 계속하시겠습니까?");
-          if (!ok) return;
+          showConfirm("기존 진행 저장이 있습니다. 새 기록을 시작하면 진행 저장은 덮어씁니다. 계속하시겠습니까?", beginNewRecord);
+          return;
         }
-        clearProgress();
-        renderDocument();
+        beginNewRecord();
       }
 
       function continueGame() {
-        enterFullscreenAndLandscape();
         openSlotOverlay("load");
       }
 
       function resetAllData() {
         showConfirm("진행 기록, 저장 슬롯, 엔딩, 지원자명과 설정을 모두 초기화하시겠습니까?", () => {
-          Object.values(STORE).forEach(key => localStorage.removeItem(key));
+          Object.values(STORE).forEach(removeStoredKey);
           state = null;
           currentNode = null;
           currentNodeId = null;
           settings = { volume: 46, muted: false, textSpeed: 18 };
           applyAudioSettings();
-          applySecretCursorState();
           updateMenuStatus();
           closeAllSystemOverlays();
           switchPanel("menuPanel");
@@ -6744,6 +6618,10 @@
       function bindEvents() {
         window.addEventListener("resize", fitStage);
         window.addEventListener("orientationchange", () => setTimeout(fitStage, 150));
+        window.addEventListener("pagehide", flushProgressSave);
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) flushProgressSave();
+        });
 
         document.addEventListener("keydown", (event) => {
           if (introReadyForInput && (event.key === "Enter" || event.key === " ")) {
@@ -6855,9 +6733,6 @@
           if (action) action();
         });
 
-        $("#endingDbAfterBtn").addEventListener("click", renderEndingDb);
-        $("#restartAfterEndingBtn").addEventListener("click", startNewGame);
-        $("#menuAfterEndingBtn").addEventListener("click", openMenu);
         els.endingStoryDbBtn.addEventListener("click", renderEndingDb);
         els.endingStoryRestartBtn.addEventListener("click", startNewGame);
         els.endingStoryMenuBtn.addEventListener("click", openMenu);
@@ -6885,7 +6760,6 @@
         bindEvents();
         fitStage();
         applyAudioSettings();
-        applySecretCursorState();
         updateMenuStatus();
         const blackFrame = new Image();
         blackFrame.src = "black.png";
