@@ -2646,119 +2646,7 @@
     }
 
   </style>
-
-  <style id="vox-custom-cursor-style">
-    @media (pointer: fine) {
-      html.vox-cursor-enabled,
-      html.vox-cursor-enabled body,
-      html.vox-cursor-enabled * {
-        cursor: none !important;
-      }
-
-      #voxCustomCursor {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 42px;
-        height: 68px;
-        z-index: 2147483647;
-        pointer-events: none;
-        opacity: 0;
-        transform: translate3d(-50%, -50%, 0) scale(1);
-        transform-origin: 50% 50%;
-        background: url("cursor.png") center / contain no-repeat;
-        image-rendering: pixelated;
-        filter:
-          drop-shadow(0 0 3px rgba(79, 238, 255, .95))
-          drop-shadow(0 0 10px rgba(48, 73, 255, .78));
-        transition: opacity .12s ease, filter .12s ease, transform .1s ease;
-        will-change: left, top, transform, filter, opacity;
-      }
-
-      #voxCustomCursor.is-visible {
-        opacity: 1;
-      }
-
-      html.secret-cursor-active #voxCustomCursor {
-        width: 58px;
-        height: 58px;
-        background-image: url("hart1.png");
-        filter:
-          brightness(1.08)
-          drop-shadow(0 0 5px rgba(151, 251, 255, 1))
-          drop-shadow(0 0 15px rgba(48, 73, 255, .92));
-      }
-
-      #voxCustomCursor.is-active {
-        transform: translate3d(-50%, -50%, 0) scale(1.12);
-        filter:
-          brightness(1.14)
-          drop-shadow(0 0 4px rgba(151, 251, 255, 1))
-          drop-shadow(0 0 14px rgba(50, 78, 255, .95));
-      }
-
-      #voxCustomCursor.is-clicking {
-        animation: voxCursorClick .32s ease-out;
-      }
-
-      .vox-cursor-burst {
-        position: fixed;
-        width: 14px;
-        height: 14px;
-        z-index: 2147483646;
-        pointer-events: none;
-        border: 2px solid rgba(133, 248, 255, .95);
-        border-radius: 50%;
-        transform: translate3d(-50%, -50%, 0) scale(.2);
-        box-shadow:
-          0 0 7px rgba(118, 244, 255, 1),
-          0 0 18px rgba(44, 75, 255, .95),
-          inset 0 0 7px rgba(255, 255, 255, .85);
-        animation: voxCursorBurst .42s ease-out forwards;
-      }
-
-      @keyframes voxCursorClick {
-        0% {
-          transform: translate3d(-50%, -50%, 0) scale(1);
-          filter:
-            brightness(1)
-            drop-shadow(0 0 3px rgba(79, 238, 255, .95))
-            drop-shadow(0 0 10px rgba(48, 73, 255, .78));
-        }
-        38% {
-          transform: translate3d(-50%, -50%, 0) scale(.82);
-          filter:
-            brightness(1.75)
-            drop-shadow(0 0 8px rgba(255, 255, 255, 1))
-            drop-shadow(0 0 24px rgba(58, 101, 255, 1));
-        }
-        100% {
-          transform: translate3d(-50%, -50%, 0) scale(1);
-          filter:
-            brightness(1)
-            drop-shadow(0 0 3px rgba(79, 238, 255, .95))
-            drop-shadow(0 0 10px rgba(48, 73, 255, .78));
-        }
-      }
-
-      @keyframes voxCursorBurst {
-        0% {
-          opacity: 1;
-          transform: translate3d(-50%, -50%, 0) scale(.2);
-        }
-        100% {
-          opacity: 0;
-          transform: translate3d(-50%, -50%, 0) scale(3.4);
-        }
-      }
-    }
-
-    @media (pointer: coarse), (prefers-reduced-motion: reduce) {
-      #voxCustomCursor,
-      .vox-cursor-burst {
-        display: none !important;
-      }
-    }
+  <style id="puzzle-hidden-controls-style">
     #puzzleTimer[hidden],
     #puzzleNextBtn[hidden],
     #secretBtn[hidden] {
@@ -3160,7 +3048,7 @@
         d08_archive: "temporary.png",
         d09_low: "temporary.png",
         d10_end: "temporary.png",
-        hidden: "6part.png",
+        hidden: "temporary.png",
         bug: "temporary.png",
         gameover: "gameover.png"
       };
@@ -3215,7 +3103,7 @@
           "danger": false,
           "condition": "비공개",
           "desc": "모든 기록을 확인하고 비공개 식별 절차를 통과한 뒤에만 열리는 전용 승인 기록.",
-          "body": "아직 수정중인 페이지입니다.\n\n그가 낮게 웃었다.\n\n“이번엔 내가 모르는 결말로 도망칠 생각 마.”"
+          "body": "수정중 입니다.\n\n새 사원증에는 직급도 부서도 없었다. 오직 한 줄만 떠 있었다.\n\nAUTHORIZED BY VOX — PRIVATE ACCESS.\n\n그가 낮게 웃었다.\n\n“이번엔 내가 모르는 결말로 도망칠 생각 마.”"
         },
         "bug": {
           "order": 5,
@@ -3399,14 +3287,17 @@
           "prompt": "첫 번째 업무를 어떻게 정리할까?",
           "choices": [
             {
+              "id": "report_direct",
               "text": "원본을 잠근 뒤, 충돌한 일정과 권한 문제만 정리해 복스에게 직접 보고한다.",
               "next": "c1_choice_1_01"
             },
             {
+              "id": "report_shared",
               "text": "인사팀과 홍보팀에 자료를 공유해 함께 판단하도록 한다.",
               "next": "c1_choice_2_01"
             },
             {
+              "id": "report_override",
               "text": "시간을 아끼기 위해 일정과 자막을 직접 고친 뒤 완성본만 제출한다.",
               "next": "c1_choice_3_01"
             }
@@ -4251,14 +4142,17 @@
           "prompt": "공개 방송 의상을 어떤 것으로 할까?",
           "choices": [
             {
+              "id": "outfit_white",
               "text": "깔끔한 흰색 정장을 고른다.",
               "next": "c4_choice_1_01"
             },
             {
+              "id": "outfit_red",
               "text": "화려한 붉은색 정장을 고른다.",
               "next": "c4_choice_2_01"
             },
             {
+              "id": "outfit_black",
               "text": "단정한 검은색 정장을 고른다.",
               "next": "c4_choice_3_01"
             }
@@ -5245,7 +5139,11 @@
       }
 
       function getSecretState() {
-        return Object.assign({ keyAcquired: false, keyUsed: false }, loadJson(STORE.secret, null) || {});
+        return Object.assign({
+          keyAcquired: false,
+          keyUsed: false,
+          hiddenCompleted: false
+        }, loadJson(STORE.secret, null) || {});
       }
 
       function saveSecretState(value) {
@@ -5263,8 +5161,16 @@
         return Boolean(secret.keyAcquired && !secret.keyUsed);
       }
 
+      function hiddenReplayReady() {
+        const secret = getSecretState();
+        return Boolean(
+          secret.hiddenCompleted ||
+          (hasEnding("hidden") && secret.keyUsed)
+        );
+      }
+
       function applySecretCursorState() {
-        document.documentElement.classList.toggle("secret-cursor-active", hasSecretKey());
+        document.documentElement.classList.remove("secret-cursor-active");
       }
 
       function hiddenUnlocked() {
@@ -6228,7 +6134,7 @@
         currentNodeId = "secret_puzzle";
         switchPanel("puzzlePanel");
 
-        const img = "6part.png";
+        const img = "unstable.png";
         els.puzzleTitle.textContent = "SECRET ACCESS";
         els.puzzleText.textContent = "잠겨 있는 비공개 기록을 복구하세요.";
         els.puzzleStatus.textContent = "시간 제한 없음 · 두 조각을 차례로 선택하면 위치가 바뀝니다.";
@@ -6405,6 +6311,16 @@
       }
 
       function showEndingActions() {
+        if (endingMode && activeEndingId === "hidden") {
+          const secret = getSecretState();
+          if (!secret.hiddenCompleted) {
+            secret.keyUsed = true;
+            secret.hiddenCompleted = true;
+            secret.completedAt = new Date().toISOString();
+            saveSecretState(secret);
+          }
+        }
+
         clearAutoTimer();
         if (autoMode) {
           autoMode = false;
@@ -6596,6 +6512,7 @@
         if (!state) return;
         state.selected.push({
           node: state.node,
+          choiceId: choice.id || "",
           text: choice.unlockedText || choice.text,
           at: Date.now()
         });
@@ -6604,12 +6521,44 @@
       }
 
       function calculateEnding() {
-        const results = state?.puzzleResults || {};
-        const times = PUZZLE_IDS.map(id => Number(results?.[id]?.seconds));
-        const allRecorded = times.every(value => Number.isFinite(value));
-        const happy = allRecorded && times.every(value => value <= 149);
-        const normalCount = times.filter(value => Number.isFinite(value) && value <= 210).length;
-        const id = happy ? "happy" : normalCount >= 2 ? "normal" : "bad";
+        const selected = Array.isArray(state?.selected) ? state.selected : [];
+
+        const hasChoice = (nodeId, choiceId, legacyText) => selected.some(item => (
+          item &&
+          item.node === nodeId &&
+          (
+            item.choiceId === choiceId ||
+            item.text === legacyText
+          )
+        ));
+
+        const choseDirectReport = hasChoice(
+          "c1_choice",
+          "report_direct",
+          "원본을 잠근 뒤, 충돌한 일정과 권한 문제만 정리해 복스에게 직접 보고한다."
+        );
+        const choseOverrideReport = hasChoice(
+          "c1_choice",
+          "report_override",
+          "시간을 아끼기 위해 일정과 자막을 직접 고친 뒤 완성본만 제출한다."
+        );
+        const choseWhiteSuit = hasChoice(
+          "c4_choice",
+          "outfit_white",
+          "깔끔한 흰색 정장을 고른다."
+        );
+        const choseRedSuit = hasChoice(
+          "c4_choice",
+          "outfit_red",
+          "화려한 붉은색 정장을 고른다."
+        );
+
+        const id = choseDirectReport && choseWhiteSuit
+          ? "happy"
+          : choseOverrideReport && choseRedSuit
+            ? "normal"
+            : "bad";
+
         triggerEnding(id);
       }
 
@@ -6748,12 +6697,11 @@
         enterFullscreenAndLandscape();
         startBgm();
 
-        if (secretKeyReady()) {
+        if (secretKeyReady() || hiddenReplayReady()) {
           const name = getRegisteredName() || "지원자";
           showNotice(`${name} 님. 식별이 완료되었습니다.`, () => {
             const secret = getSecretState();
-            secret.keyUsed = true;
-            secret.usedAt = new Date().toISOString();
+            secret.hiddenStartedAt = new Date().toISOString();
             saveSecretState(secret);
             state = defaultState();
             state.playerName = name;
@@ -6949,57 +6897,6 @@
       }
 
       init();
-    })();
-  </script>
-
-  <script id="vox-custom-cursor-script">
-    (() => {
-      const finePointer = window.matchMedia('(pointer: fine)');
-      if (!finePointer.matches) return;
-
-      document.documentElement.classList.add('vox-cursor-enabled');
-
-      const cursor = document.createElement('div');
-      cursor.id = 'voxCustomCursor';
-      cursor.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(cursor);
-
-      const interactiveSelector = [
-        'a', 'button', 'input', 'select', 'textarea', 'label', 'summary',
-        '[role="button"]', '[tabindex]:not([tabindex="-1"])', '.choice', '.puzzle-piece'
-      ].join(',');
-
-      const moveCursor = (event) => {
-        cursor.style.left = `${event.clientX}px`;
-        cursor.style.top = `${event.clientY}px`;
-        cursor.classList.add('is-visible');
-      };
-
-      const setInteractiveState = (event) => {
-        cursor.classList.toggle('is-active', Boolean(event.target.closest?.(interactiveSelector)));
-      };
-
-      const flashCursor = (event) => {
-        cursor.classList.remove('is-clicking');
-        void cursor.offsetWidth;
-        cursor.classList.add('is-clicking');
-
-        const burst = document.createElement('span');
-        burst.className = 'vox-cursor-burst';
-        burst.style.left = `${event.clientX}px`;
-        burst.style.top = `${event.clientY}px`;
-        document.body.appendChild(burst);
-        burst.addEventListener('animationend', () => burst.remove(), { once: true });
-      };
-
-      document.addEventListener('pointermove', moveCursor, { passive: true });
-      document.addEventListener('pointerover', setInteractiveState, { passive: true });
-      document.addEventListener('pointerdown', flashCursor, { passive: true });
-      document.addEventListener('pointerup', () => cursor.classList.remove('is-clicking'), { passive: true });
-      document.addEventListener('pointercancel', () => cursor.classList.remove('is-clicking'), { passive: true });
-      document.documentElement.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'));
-      document.documentElement.addEventListener('mouseenter', () => cursor.classList.add('is-visible'));
-      window.addEventListener('blur', () => cursor.classList.remove('is-visible'));
     })();
   </script>
 </body>
